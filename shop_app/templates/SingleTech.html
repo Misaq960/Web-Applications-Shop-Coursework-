@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+    <h1>{{ stock.name }}</h1>
+
+    <img src="{{ url_for('static', filename=stock.image) }}" 
+         alt="{{ stock.name }}" 
+         width="300">
+
+    <p>{{ stock.price }}</p>
+    <p>{{ stock.description }}</p>
+
+    <form action="{{ url_for('singleProductPage', stockId=stockId) }}" method="POST">
+        <label>Quantity:</label>
+        <input type="number" name="quantity" min="1" required>
+        <button type="submit">Add to basket</button>
+    </form>
+
+    <br>
+    <a href="{{ url_for('galleryPage') }}">Back to shop</a>
+
+</body>
+</html>

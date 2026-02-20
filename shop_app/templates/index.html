@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+    <h1>Shop Stock</h1>
+
+    {% for stock in stocks %}
+        <h2>
+            <a href="{{ url_for('singleProductPage', stockId=loop.index0) }}">
+                {{ stock.name }}
+            </a>
+        </h2>
+
+        <img src="{{ url_for('static', filename=stock.image) }}" 
+             alt="{{ stock.name }}" 
+             width="150">
+
+        <p>{{ stock.price }}</p>
+        <p>{{ stock.description }}</p>
+
+        <hr>
+    {% endfor %}
+
+</body>
+</html>
