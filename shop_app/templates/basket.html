@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Your Basket</h1>
+
+{% if basket %}
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Item</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+    </tr>
+
+    {% for entry in basket %}
+    <tr>
+        <td>{{ entry.item.name }}</td>
+        <td>£{{ entry.item.price }}</td>
+        <td>{{ entry.qty }}</td>
+        <td>£{{ entry.subtotal }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Total: £{{ total }}</h2>
+
+<a href="{{ url_for('clearBasket') }}">Clear basket</a>
+
+{% else %}
+<p>Your basket is empty.</p>
+{% endif %}
+
+<br>
+<a href="{{ url_for('index') }}">Back to shop</a>
+
+</body>
+</html>

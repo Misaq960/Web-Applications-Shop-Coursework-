@@ -1,25 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+<head>
+    <meta charset="utf-8">
+    <title>Shop - All Items</title>
+</head>
 <body>
 
-    <h1>Shop Stock</h1>
+<h1>Items for sale</h1>
 
-    {% for stock in stocks %}
-        <h2>
-            <a href="{{ url_for('singleProductPage', stockId=loop.index0) }}">
-                {{ stock.name }}
-            </a>
-        </h2>
+<a href="/basket">View basket</a>
 
-        <img src="{{ url_for('static', filename=stock.image) }}" 
-             alt="{{ stock.name }}" 
-             width="150">
+<ul>
+    {% for item in stocks %}
+    <li>
+        <h2>{{ item.name }}</h2>
+        <p>Price: £{{ item.price }}</p>
+        <p>{{ item.description }}</p>
 
-        <p>{{ stock.price }}</p>
-        <p>{{ stock.description }}</p>
+        {% if item.image %}
+        <img src="{{ url_for('static', filename=item.image) }}" width="150">
+        {% endif %}
 
-        <hr>
+        <p><a href="{{ url_for('itemPage', item_id=item.id) }}">View details</a></p>
+    </li>
     {% endfor %}
+</ul>
 
 </body>
 </html>

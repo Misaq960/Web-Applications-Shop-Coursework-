@@ -2,11 +2,13 @@
 <html>
 <body>
 
-    <h1>Item added</h1>
+<h1>Item added</h1>
 
-    <p>You added {{ quantity }} {{ stock.name }}(s) to the basket.</p>
+<p>You added {{ qty }} {{ item.name }}(s) to the basket.</p>
 
-    <a href="{{ url_for('galleryPage') }}">Back to shop</a>
+<a href="{{ url_for('index') }}">Back to shop</a>
+<br>
+<a href="{{ url_for('basketPage') }}">View basket</a>
 
 </body>
 </html>

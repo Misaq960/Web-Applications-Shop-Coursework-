@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{{ item.name }}</title>
+</head>
+<body>
+
+<h1>{{ item.name }}</h1>
+
+{% if item.image %}
+<img src="{{ url_for('static', filename=item.image) }}" width="300">
+{% endif %}
+
+<p>Price: £{{ item.price }}</p>
+<p>{{ item.description }}</p>
+
+<form action="{{ url_for('add_to_basket', item_id=item.id) }}" method="POST">
+    <label>Quantity:</label>
+    <input type="number" name="qty" value="1" min="1" required>
+    <button type="submit">Add to basket</button>
+</form>
+
+<a href="{{ url_for('index') }}">Back to shop</a>
+
+</body>
+</html>
