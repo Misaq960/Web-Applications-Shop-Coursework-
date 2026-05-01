@@ -1,38 +1,64 @@
-<!DOCTYPE html>
-<html>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Your Basket{% endblock %}
+
+{% block content %}
 
 <h1>Your Basket</h1>
 
 {% if basket %}
-<table border="1" cellpadding="8">
-    <tr>
-        <th>Item</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Subtotal</th>
-    </tr>
 
-    {% for entry in basket %}
-    <tr>
-        <td>{{ entry.item.name }}</td>
-        <td>£{{ entry.item.price }}</td>
-        <td>{{ entry.qty }}</td>
-        <td>£{{ entry.subtotal }}</td>
-    </tr>
-    {% endfor %}
-</table>
+    <!-- Basket item list -->
+    <div class="basket-container">
+        {% for entry in basket %}
+            <div class="basket-card">
 
-<h2>Total: £{{ total }}</h2>
+                <!-- Item details -->
+                <div class="basket-info">
+                    <h3>{{ entry.item.name }}</h3>
 
-<a href="{{ url_for('clearBasket') }}">Clear basket</a>
+                    <p>Price: £{{ entry.item.price }}</p>
+                    <p>Quantity: {{ entry.qty }}</p>
+                    <p>Subtotal: £{{ entry.subtotal }}</p>
+
+                    <!-- Remove quantity form -->
+                    <form action="{{ url_for('removeSingle', item_id=entry.item.id) }}" method="post">
+                        <label>Remove:</label>
+                        <input type="number" name="remove_qty" value="1" min="1" max="{{ entry.qty }}">
+                        <button type="submit" class="action-button remove-button">Remove</button>
+                    </form>
+                </div>
+
+                <!-- Item image -->
+                <div class="basket-image-container">
+                    <img src="{{ url_for('static', filename=entry.item.image) }}" 
+                         alt="{{ entry.item.name }}" 
+                         class="basket-image">
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Basket total -->
+    <h2>Total: £{{ total }}</h2>
+
+    <!-- Checkout + basket actions -->
+    <a href="{{ url_for('checkout') }}" class="action-button add-button">Checkout</a>
+    <br><br>
+
+    <a href="{{ url_for('clearBasket') }}" class="action-button remove-button">Clear basket</a>
+    <br><br>
+
+    <a href="{{ url_for('index') }}" class="action-button add-button">Back to shop</a>
 
 {% else %}
-<p>Your basket is empty.</p>
+
+    <!-- Empty basket message -->
+    <p>Your basket is empty.</p>
+    <br>
+    <a href="{{ url_for('index') }}" class="action-button add-button">Back to shop</a>
+
 {% endif %}
 
-<br>
-<a href="{{ url_for('index') }}">Back to shop</a>
-
-</body>
-</html>
+{% endblock %}

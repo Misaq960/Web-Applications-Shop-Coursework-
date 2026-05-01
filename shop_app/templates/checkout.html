@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+
+<h1>Checkout</h1>
+
+<!-- Display validation errors -->
+{% if error %}
+    <p class="error-message">{{ error }}</p>
+{% endif %}
+
+<!-- Checkout form -->
+<form method="post" class="checkout-form">
+
+    <!-- Name on card -->
+    <label>Name on Card:</label>
+    <input type="text" name="name" value="{{ request.form.get('name', '') }}" required>
+    
+    <!-- Card number -->
+    <label>Card Number:</label>
+    <input type="text" name="card_number" value="{{ request.form.get('card_number', '') }}" required>
+    
+    <!-- Expiry date -->
+    <label>Expiry Date (MM/YY or MM/YYYY):</label>
+    <input type="text" name="expiry" value="{{ request.form.get('expiry', '') }}" required>
+    
+    <!-- CVV -->
+    <label>CVV:</label>
+    <input type="text" name="cvv" value="{{ request.form.get('cvv', '') }}" required>
+    
+    <!-- Billing address -->
+    <label>Billing Address:</label>
+    <textarea name="address" required>{{ request.form.get('address', '') }}</textarea>
+    
+    <!-- Submit order -->
+    <button type="submit" class="action-button add-button">Place Order</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Order Confirmed{% endblock %}
+
+{% block content %}
+
+<h1>Order Confirmed</h1>
+
+<!-- Simple confirmation message -->
+<p>Your order has been placed successfully.</p>
+
+<!-- Back to homepage -->
+<a href="{{ url_for('index') }}" class="action-button add-button">Back to shop</a>
+
+{% endblock %}

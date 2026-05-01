@@ -1,27 +1,56 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>{{ item.name }}</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}{{ item.name }}{% endblock %}
+
+{% block content %}
 
 <h1>{{ item.name }}</h1>
 
-{% if item.image %}
-<img src="{{ url_for('static', filename=item.image) }}" width="300">
-{% endif %}
-
+<!-- Basic item details -->
 <p>Price: £{{ item.price }}</p>
 <p>{{ item.description }}</p>
 
-<form action="{{ url_for('add_to_basket', item_id=item.id) }}" method="POST">
+<!-- Environmental impact rating -->
+<p>Environmental Impact Rating: {{ item.environmentalImpactRating }}/5</p>
+
+<!-- General explanation shown for all items -->
+<p>
+    This rating is based on a variety of factors such as fast fashion involvement, 
+    sustainability of manufacturing, and environmental impact post‑purchase. We 
+    consider environmental impact in terms of how harmful it can be, rather 
+    than how positive an impact it has.
+</p>
+
+<!-- Rating-specific explanation -->
+{% if item.environmentalImpactRating == 1 %}
+    <p>This product has a very low environmental impact.</p>
+{% elif item.environmentalImpactRating == 2 %}
+    <p>This product has a relatively low environmental impact.</p>
+{% elif item.environmentalImpactRating == 3 %}
+    <p>This product has a moderate environmental impact.</p>
+{% elif item.environmentalImpactRating == 4 %}
+    <p>This product has a high environmental impact.</p>
+{% elif item.environmentalImpactRating == 5 %}
+    <p>This product has a very high environmental impact.</p>
+{% endif %}
+
+<!-- Product image -->
+<img src="{{ url_for('static', filename=item.image) }}" 
+     alt="{{ item.name }}" 
+     width="250">
+
+<br><br>
+
+<!-- Add-to-basket form -->
+<form action="{{ url_for('add_to_basket', item_id=item.id) }}" method="post">
     <label>Quantity:</label>
-    <input type="number" name="qty" value="1" min="1" required>
-    <button type="submit">Add to basket</button>
+    <input type="number" name="qty" value="1" min="1">
+    <button type="submit" class="action-button add-button">Add to basket</button>
 </form>
 
-<a href="{{ url_for('index') }}">Back to shop</a>
+<br>
 
-</body>
-</html>
+<!-- Back navigation -->
+<a href="{{ url_for('index') }}" class="action-button add-button">Back to shop</a>
+
+{% endblock %}

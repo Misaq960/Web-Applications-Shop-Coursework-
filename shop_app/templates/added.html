@@ -1,14 +1,17 @@
-<!DOCTYPE html>
-<html>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Item Added{% endblock %}
+
+{% block content %}
 
 <h1>Item added</h1>
 
+<!-- Confirmation message -->
 <p>You added {{ qty }} {{ item.name }}(s) to the basket.</p>
 
-<a href="{{ url_for('index') }}">Back to shop</a>
-<br>
-<a href="{{ url_for('basketPage') }}">View basket</a>
+<!-- Navigation options -->
+<a href="{{ url_for('index') }}" class="action-button add-button">Back to shop</a>
+<br><br>
+<a href="{{ url_for('basketPage') }}" class="action-button add-button">View basket</a>
 
-</body>
-</html>
+{% endblock %}
