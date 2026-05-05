@@ -9,4 +9,4 @@ WORKDIR /usr/src/app/shop_app
 
 RUN chmod -R g+w /usr/src/app/shop_app/instance
 
-CMD gunicorn --bind 0.0.0.0:5000 shopApp:app
+CMD gunicorn --bind 0.0.0.0:5000 shopapp:app
